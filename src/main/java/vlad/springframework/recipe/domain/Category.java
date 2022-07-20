@@ -13,6 +13,7 @@ public class Category {
     private Long id;
     private String description;
     @ManyToMany(mappedBy = "categories")
+    @EqualsAndHashCode.Exclude
     private Set<Recipe> recipes;
 
 }

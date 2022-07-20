@@ -11,6 +11,7 @@ public class Notes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne
+    @EqualsAndHashCode.Exclude
     private Recipe recipe;
     @Lob
     private String recipeNotes;
