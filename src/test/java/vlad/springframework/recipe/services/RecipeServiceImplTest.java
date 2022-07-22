@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import vlad.springframework.recipe.converters.RecipeCommandToRecipe;
+import vlad.springframework.recipe.converters.RecipeToRecipeCommand;
 import vlad.springframework.recipe.domain.Recipe;
 import vlad.springframework.recipe.repositories.RecipeRepository;
 
@@ -22,10 +24,14 @@ class RecipeServiceImplTest {
     private RecipeServiceImpl recipeService;
     @Mock
     private RecipeRepository recipeRepository;
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
 
     @BeforeEach
     void setUp() {
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
