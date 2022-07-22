@@ -6,6 +6,7 @@ import vlad.springframework.recipe.domain.Recipe;
 import vlad.springframework.recipe.repositories.RecipeRepository;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
@@ -23,5 +24,13 @@ public class RecipeServiceImpl implements  RecipeService{
         Set<Recipe> recipeSet = new HashSet<>();
        recipeRepository.findAll().forEach(recipe -> recipeSet.add(recipe));
        return recipeSet;
+    }
+
+    @Override
+    public Recipe findById(Long id) {
+        Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
+        if (optionalRecipe.isPresent())
+            return optionalRecipe.get();
+        else throw new RuntimeException("Recipe not found!");
     }
 }
