@@ -7,6 +7,7 @@ import vlad.springframework.recipe.commands.RecipeCommand;
 import vlad.springframework.recipe.converters.RecipeCommandToRecipe;
 import vlad.springframework.recipe.converters.RecipeToRecipeCommand;
 import vlad.springframework.recipe.domain.Recipe;
+import vlad.springframework.recipe.exceptions.NotFoundException;
 import vlad.springframework.recipe.repositories.RecipeRepository;
 
 import java.util.HashSet;
@@ -39,7 +40,7 @@ public class RecipeServiceImpl implements  RecipeService{
         Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
         if (optionalRecipe.isPresent())
             return optionalRecipe.get();
-        else throw new RuntimeException("Recipe not found!");
+        else throw new NotFoundException("Recipe not found!");
     }
 
     @Override

@@ -8,12 +8,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import vlad.springframework.recipe.converters.RecipeCommandToRecipe;
 import vlad.springframework.recipe.converters.RecipeToRecipeCommand;
 import vlad.springframework.recipe.domain.Recipe;
+import vlad.springframework.recipe.exceptions.NotFoundException;
 import vlad.springframework.recipe.repositories.RecipeRepository;
 
 import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.util.AssertionErrors.assertNotNull;
@@ -55,5 +57,10 @@ class RecipeServiceImplTest {
         Set<Recipe> recipes = recipeService.getRecipes();
         assertThat(recipes).hasSize(1);
         verify(recipeRepository).findAll();
+    }
+    @Test
+    void getRecipeByIdNotFound() {
+        when(recipeRepository.findById(anyLong())).thenReturn(Optional.empty());
+        assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> recipeService.findById(1L));
     }
 }
