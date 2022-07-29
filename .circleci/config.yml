@@ -6,7 +6,7 @@ jobs:
     docker:
       - image: cimg/openjdk:17.0-browsers
         auth:
-          username: mydockerhub-user
+          username: vladnitu
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - checkout
@@ -14,3 +14,4 @@ jobs:
       - run : mvn test
       - store_artifacts:
           path:  target
+          destination: jacoco-artifact
