@@ -6,13 +6,15 @@ orbs:
   maven: circleci/maven@1.3.0
 
 jobs:
-  store-jacoco:
-    store_artifacts:
-      path: target
+  - store-jacoco:
+      store_artifacts:
+        path: target
+  - run_mvn_test:
+      maven/test
 
 
 workflows:
-  maven_test:
+  testing:
     jobs:
-      - maven/test
+      - run_mvn_test
       - store-jacoco
